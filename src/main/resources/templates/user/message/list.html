@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" class="default-style layout-navbar-fixed" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="layout::head"></head>
+<body>
+<div class="page-loader">
+    <div class="bg-primary"></div>
+</div>
+<!-- Layout wrapper -->
+<div class="layout-wrapper layout-2">
+    <!-- Layout inner -->
+    <div class="layout-inner">
+        <!-- Layout sidenav -->
+        <div th:replace="layout::side"></div>
+        <!-- / Layout sidenav -->
+        <!-- Layout container -->
+        <div class="layout-container">
+            <!-- Layout navbar -->
+            <nav th:replace="layout::navbar"></nav>
+            <!-- / Layout navbar -->
+            <!-- Layout content -->
+            <div class="layout-content">
+                <!-- Content -->
+                <div class="container-fluid flex-grow-1 container-p-y">
+                    <div class="card mb-4">
+                        <h6 class="card-header"><i class="ion ion-md-clipboard"></i> 문자발송 정보</h6>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <form id="searchInfo" th:action="@{/user/message/list}" method="post" th:object="${condition}">
+                                        <div class="input-group">
+                                            <select class="custom-select" name="status" id="status" title="발송상태">
+                                                <option value="">전체</option>
+                                                <option value="1">성공</option>
+                                                <option value="0">실패</option>
+                                            </select>
+                                            <input type="text" class="form-control" name="sendPhone" placeholder="발신번호">
+                                            <input type="text" class="form-control" name="destPhone" placeholder="수신번호">
+                                            <input type="text" class="form-control" name="destPhone" placeholder="문자내용">
+                                            <span class="input-group-append">
+                                            <button type="submit" id="btn-search" class="btn btn-secondary">검색</button>
+                                        </span>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <div class="table-responsive">
+                            <table class="table table-sm table-hover">
+                                <thead>
+                                <tr class="table-info">
+                                    <th scope="col">구분</th>
+                                    <th scope="col">발신번호</th>
+                                    <th scope="col">수신번호</th>
+                                    <th scope="col">발송일시</th>
+                                    <th scope="col">내용</th>
+                                    <th scope="col">통신사</th>
+                                    <th scope="col">상태</th>
+                                    <th scope="col" sec:authorize="hasAuthority('ROLE_ADMIN')">SendId</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="message : ${messageList}">
+                                    <td class="text-center" th:text="${message.msgType}"></td>
+                                    <td class="text-center" th:text="${message.sendPhone}"></td>
+                                    <td class="text-center" th:text="${message.destPhone}"></td>
+                                    <td class="text-center" th:text="${message.sendTime}"></td>
+                                    <td class="text-left">
+                                        <a th:href="@{'/user/message/' + ${message.id}}"><span th:text="${message.msgBody}"></span></a>
+                                    </td>
+                                    <td class="text-center" th:text="${message.telInfo}"></td>
+                                    <td class="text-center" th:text="${message.status == 1 ? '전송' : '실패'}"></td>
+                                    <td class="text-center" sec:authorize="hasAuthority('ROLE_ADMIN')" th:text="${message.cinfo}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-12 text-center">
+                                    <a th:href="@{/user/message/send}" class="btn btn-primary">문자 발송</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- / Content -->
+                <!-- Layout footer -->
+                <nav th:replace="layout::footer"></nav>
+                <!-- / Layout footer -->
+                <!-- Layout content -->
+            </div>
+            <!-- / Layout container -->
+        </div>
+        <!-- Layout inner -->
+        <div class="layout-overlay layout-sidenav-toggle"></div>
+    </div>
+    <!-- / Layout wrapper -->
+</body>
+</html>

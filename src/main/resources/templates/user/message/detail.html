@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" class="default-style layout-navbar-fixed">
+<head th:replace="layout::head"></head>
+<body>
+<div class="page-loader">
+    <div class="bg-primary"></div>
+</div>
+<!-- Layout wrapper -->
+<div class="layout-wrapper layout-2">
+    <!-- Layout inner -->
+    <div class="layout-inner">
+        <!-- Layout sidenav -->
+        <div th:replace="layout::side"></div>
+        <!-- / Layout sidenav -->
+        <!-- Layout container -->
+        <div class="layout-container">
+            <!-- Layout navbar -->
+            <nav th:replace="layout::navbar"></nav>
+            <!-- / Layout navbar -->
+            <!-- Layout content -->
+            <div class="layout-content">
+                <!-- Content -->
+                <div class="container-fluid flex-grow-1 container-p-y">
+
+                    <div class="card mb-4">
+                        <h6 class="card-header"><i class="ion ion-md-clipboard"></i> 문자발송 정보</h6>
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <label class="col-form-label col-sm-2 text-sm-right">구분</label>
+                                <label class="col-form-label col-sm-10" th:text="${message.msgType}"></label>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-sm-2 text-sm-right">발신번호</label>
+                                <label class="col-form-label col-sm-10" th:text="${message.sendPhone}"></label>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-sm-2 text-sm-right">수신번호</label>
+                                <label class="col-form-label col-sm-10" th:text="${message.destPhone}"></label>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-sm-2 text-sm-right">발송일시</label>
+                                <label class="col-form-label col-sm-10" th:text="${message.sendTime}"></label>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-sm-2 text-sm-right">문자내용</label>
+                                <label class="col-form-label col-sm-10" th:text="${message.msgBody}"></label>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-sm-2 text-sm-right">통신사</label>
+                                <label class="col-form-label col-sm-10" th:text="${message.telInfo}"></label>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-sm-2 text-sm-right">발송상태</label>
+                                <label class="col-form-label col-sm-10" th:text="${message.status == 1 ? '성공' : '실패'}"></label>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-sm-2 text-sm-right">발송결과</label>
+                                <label class="col-form-label col-sm-10" th:text="${message.resultMsg}"></label>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-sm-2 text-sm-right">전송계정</label>
+                                <label class="col-form-label col-sm-10" th:text="${message.cinfo}"></label>
+                            </div>
+
+<!--                            <div class="form-group row">-->
+<!--                                <label class="col-form-label col-sm-2 text-sm-right">수신번호</label>-->
+<!--                                <label class="col-form-label col-sm-10" th:text="${message.attachedFile}"></label>-->
+<!--                            </div>-->
+
+                            <div class="form-group row">
+                                <div class="col-sm-10 ml-sm-auto">
+                                    <a class="btn btn-success" th:href="@{/manager/message/list}">목록 </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- / Content -->
+                <!-- Layout footer -->
+                <nav th:replace="layout::footer"></nav>
+                <!-- / Layout footer -->
+                <!-- Layout content -->
+            </div>
+            <!-- / Layout container -->
+        </div>
+        <!-- Layout inner -->
+        <div class="layout-overlay layout-sidenav-toggle"></div>
+    </div>
+    <!-- / Layout wrapper -->
+</body>
+</html>

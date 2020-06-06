@@ -1,0 +1,124 @@
+package com.namolog.message.common;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class MessageCode {
+    public Map<Integer, String> typeMap = new HashMap<> ();
+    public Map<Integer, String> resultMap = new HashMap<> ();
+
+    public MessageCode() {
+        typeMap.put(0, "sms");
+        typeMap.put(2, "fax");
+        typeMap.put(3, "phone");
+        typeMap.put(5, "mms");
+        typeMap.put(6, "alrim");
+        typeMap.put(7, "friend");
+        typeMap.put(8, "rcs");
+        // 공통
+        resultMap.put(9081, "선불 사용자 FAX, PHONE 발송 제한");
+        resultMap.put(9082, "발송해제");
+        resultMap.put(9083, "IP 차단");
+        resultMap.put(9084, "DEVICE 발송 제한");
+        resultMap.put(9085, "사용금지 Callback 번호");
+        resultMap.put(9010, "아이디 틀림");
+        resultMap.put(9011, "비밀번호 틀림");
+        resultMap.put(9012, "중복 접속 량 많음");
+        resultMap.put(9014, "알림톡/친구톡 유효하지 않은 발신프로필키");
+        resultMap.put(9015, "알림톡/친구톡 발신프로필키 미 입력");
+        resultMap.put(9016, "알림톡/친구톡 템플릿 미 입력");
+        resultMap.put(9017, "존재하지 않는 첨부파일");
+        resultMap.put(9018, "0 바이트 첨부파일");
+        resultMap.put(9019, "지원하지 않는 첨부파일");
+        resultMap.put(9020, "Wrong Data Format");
+        resultMap.put(9022, "Wrong Data Format(허용되지 않는 문자 포함)");
+        resultMap.put(9023, "시간제한 (리포트 수신대기 timeout)");
+        resultMap.put(9024, "Wrong Data Format(메시지 본문 길이)");
+        resultMap.put(9026, "블랙리스트에 의한 차단");
+        resultMap.put(9027, "MMS 첨부파일 이미지 사이즈 초과");
+        resultMap.put(9028, "첨부파일 URL 구문 오류");
+        resultMap.put(9029, "JSON String 구문 오류");
+        resultMap.put(9030, "지원하지 않는 첨부파일 데이터 타입");
+        resultMap.put(9031, "첨부파일 테이블과 매칭되는 MSG_KEY 없음");
+        resultMap.put(9032, "RCS 테이블과 매칭되는 REFKEY 없음");
+        resultMap.put(9033, "지원하지 않는 대체발송 타입");
+        resultMap.put(9074, "등록되지 않는 MessagebaseID or ChatbotID");
+        resultMap.put(9080, "Deny User Ack");
+        resultMap.put(9214, "Wrong Phone Number");
+        resultMap.put(9311, "Uploaded File Not Found");
+        resultMap.put(9903, "선불사용자 사용금지");
+        resultMap.put(9904, "Block time (날짜제한)");
+        resultMap.put(9905, "Block time");
+        resultMap.put(9907, "지원하지 않는 메시지 타입");
+        resultMap.put(9908, "PHONE, FAX 선불사용자 제한기능");
+        resultMap.put(9090, "기타 에러");
+        // SMS
+        resultMap.put(4100, "전송 완료");
+        resultMap.put(4400, "음영 지역");
+        resultMap.put(4401, "단말기 전원 꺼짐");
+        resultMap.put(4402, "단말기 메시지 저장 초과");
+        resultMap.put(4403, "메시지 삭제 됨");
+        resultMap.put(4404, "가입자 위치 정보 없음");
+        resultMap.put(4405, "단말기 BUSY");
+        resultMap.put(4410, "잘못된 번호");
+        resultMap.put(4420, "기타 에러");
+        resultMap.put(4430, "스팸");
+        resultMap.put(4431, "발송 제한 수신거부(스팸)");
+        resultMap.put(4411, "NPDB 에러");
+        resultMap.put(4412, "착신거절");
+        resultMap.put(4413, "SMSC 형식오류");
+        resultMap.put(4414, "비가입자, 결번, 서비스정지");
+        resultMap.put(4421, "타임아웃");
+        resultMap.put(4422, "단말기 일시정지");
+        resultMap.put(4423, "단말기 착신거부");
+        resultMap.put(4424, "URL SMS 미지원폰");
+        resultMap.put(4425, "단말기 호 처리 중");
+        resultMap.put(4426, "재시도 한도초과");
+        resultMap.put(4427, "기타 단말기 문제");
+        resultMap.put(4428, "시스템 에러");
+        resultMap.put(4432, "회신번호 차단(개인)");
+        resultMap.put(4433, "회신번호 차단(기업)");
+        resultMap.put(4434, "회신번호 사전 등록제에 의한 미등록 차단");
+        resultMap.put(4435, "KISA 신고 스팸 회신 번호 차단");
+        resultMap.put(4436, "회신번호 사전 등록제 번호규칙 위반");
+        resultMap.put(4437, "중복발신제한");
+        // MMS
+        resultMap.put(6600, "전달");
+        resultMap.put(6601, "타임 아웃");
+        resultMap.put(6602, "단말기 호 처리중");
+        resultMap.put(6603, "음영 지역");
+        resultMap.put(6604, "전원이 꺼져 있음");
+        resultMap.put(6605, "메시지 저장 개수 초과");
+        resultMap.put(6606, "잘못된 번호");
+        resultMap.put(6607, "서비스 일시 정지");
+        resultMap.put(6608, "기타 단말기 문제");
+        resultMap.put(6609, "착신 거절");
+        resultMap.put(6610, "기타 에러");
+        resultMap.put(6611, "통신사의 SMC 형식 오류");
+        resultMap.put(6612, "게이트웨이의 형식 오류");
+        resultMap.put(6613, "서비스 불가 단말기");
+        resultMap.put(6614, "단말기 호 불가 상태");
+        resultMap.put(6615, "SMC 운영자에 의해 삭제");
+        resultMap.put(6616, "통신사의 메시지 큐 초과");
+        resultMap.put(6617, "통신사의 스팸 처리");
+        resultMap.put(6618, "공정위의 스팸 처리");
+        resultMap.put(6619, "게이트웨이의 스팸 처리");
+        resultMap.put(6620, "발송 건수 초과");
+        resultMap.put(6621, "메시지의 길이 초과");
+        resultMap.put(6622, "잘못된 번호 형식");
+        resultMap.put(6623, "잘못된 데이터 형식");
+        resultMap.put(6624, "MMS 정보를 찾을 수 없음");
+        resultMap.put(6625, "NPDB 에러");
+        resultMap.put(6626, "080 수신거부(SPAM)");
+        resultMap.put(6627, "발송제한 수신거부(SPAM)");
+        resultMap.put(6628, "회신번호 차단(개인)");
+        resultMap.put(6629, "회신번호 차단(기업)");
+        resultMap.put(6630, "서비스 불가 번호");
+        resultMap.put(6631, "회신번호 사전 등록제에 의한 미등록 차단");
+        resultMap.put(6632, "KISA 신고 스팸 회신 번호 차단");
+        resultMap.put(6633, "회신번호 사전 등록제 번호규칙 위반");
+        resultMap.put(6634, "중복발신 제한");
+        resultMap.put(6670, "첨부파일 사이즈 초과(60K)");
+        //
+    }
+}

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" class="default-style layout-navbar-fixed">
+<head th:replace="layout::head"></head>
+<body>
+<div class="page-loader">
+    <div class="bg-primary"></div>
+</div>
+<!-- Layout wrapper -->
+<div class="layout-wrapper layout-2">
+    <!-- Layout inner -->
+    <div class="layout-inner">
+        <!-- Layout sidenav -->
+        <div th:replace="layout::side"></div>
+        <!-- / Layout sidenav -->
+        <!-- Layout container -->
+        <div class="layout-container">
+            <!-- Layout navbar -->
+            <nav th:replace="layout::navbar"></nav>
+            <!-- / Layout navbar -->
+            <!-- Layout content -->
+            <div class="layout-content">
+                <!-- Content -->
+                <div class="container-fluid flex-grow-1 container-p-y">
+                    <div class="card mb-4">
+                        <h6 class="card-header"><i class="ion ion-md-clipboard"></i> 사용자 정보</h6>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-sm table-hover">
+                                    <thead>
+                                    <tr class="table-info">
+                                        <th scope="col">이름</th>
+                                        <th scope="col">이메일</th>
+                                        <th scope="col">권한</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="account : ${accountList}">
+                                        <td class="text-center">
+                                            <a th:href="@{'/admin/account/' + ${account.id}}"><span th:text="${account.username}"></span></a>
+                                        </td>
+                                        <td class="text-center" th:text="${account.email}"></td>
+                                        <td class="text-center">
+                                    <span th:each="authority,iter : ${account.authorityList}">
+                                        <h6 th:text="${authority.role.name}"></h6>
+                                    </span>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-12 text-center">
+                                    <a th:href="@{/admin/account/register}" class="btn btn-primary">사용자 등록</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- / Content -->
+                <!-- Layout footer -->
+                <nav th:replace="layout::footer"></nav>
+                <!-- / Layout footer -->
+                <!-- Layout content -->
+            </div>
+            <!-- / Layout container -->
+        </div>
+        <!-- Layout inner -->
+        <div class="layout-overlay layout-sidenav-toggle"></div>
+    </div>
+    <!-- / Layout wrapper -->
+</body>
+</html>

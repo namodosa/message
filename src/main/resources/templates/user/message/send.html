@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" class="default-style layout-navbar-fixed" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="layout::head"></head>
+<body>
+<div class="page-loader">
+    <div class="bg-primary"></div>
+</div>
+<!-- Layout wrapper -->
+<div class="layout-wrapper layout-2">
+    <!-- Layout inner -->
+    <div class="layout-inner">
+        <!-- Layout sidenav -->
+        <div th:replace="layout::side"></div>
+        <!-- / Layout sidenav -->
+        <!-- Layout container -->
+        <div class="layout-container">
+            <!-- Layout navbar -->
+            <nav th:replace="layout::navbar"></nav>
+            <!-- / Layout navbar -->
+            <!-- Layout content -->
+            <div class="layout-content">
+                <!-- Content -->
+                <div class="container-fluid flex-grow-1 container-p-y">
+
+                    <div class="card mb-4">
+                        <h6 class="card-header"><i class="ion ion-md-clipboard"></i> 문자 발송</h6>
+                        <div class="card-body">
+                            <form class="form-horizontal" th:action="@{/user/message/send}" method="post">
+                                <div class="form-group row">
+                                    <label class="col-form-label col-sm-2 text-sm-right">발신번호</label>
+                                    <div class="col-sm-10">
+                                        <select class="custom-select" name="sendPhone" id="sendPhone">
+                                            <option th:each="phone: ${phoneList}"
+                                                    th:value="${phone.phone}"
+                                                    th:text="${phone.phone}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-form-label col-sm-2 text-sm-right">수신번호</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control input-large" name="destPhone" id="destPhone" placeholder="" required>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-form-label col-sm-2 text-sm-right">문자내용</label>
+                                    <div class="col-sm-10">
+                                        <textarea id="txt-contents" name="msgBody" class="form-control" style="height: 200px"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-form-label col-sm-2 text-sm-right">문자치환</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control input-large" name="replace1" id="replace1" placeholder="치환문자1">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control input-large" name="replace2" id="replace2" placeholder="치환문자2">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control input-large" name="replace3" id="replace3" placeholder="치환문자3">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-sm-10 ml-sm-auto">
+                                        <button type="Submit" class="btn btn-primary">발송</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- / Content -->
+                <!-- Layout footer -->
+                <nav th:replace="layout::footer"></nav>
+                <!-- / Layout footer -->
+                <!-- Layout content -->
+            </div>
+            <!-- / Layout container -->
+        </div>
+        <!-- Layout inner -->
+        <div class="layout-overlay layout-sidenav-toggle"></div>
+    </div>
+    <!-- / Layout wrapper -->
+</body>
+</html>

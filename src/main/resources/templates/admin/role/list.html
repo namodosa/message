@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" class="default-style layout-navbar-fixed">
+<head th:replace="layout::head"></head>
+<body>
+<div class="page-loader">
+    <div class="bg-primary"></div>
+</div>
+<!-- Layout wrapper -->
+<div class="layout-wrapper layout-2">
+    <!-- Layout inner -->
+    <div class="layout-inner">
+        <!-- Layout sidenav -->
+        <div th:replace="layout::side"></div>
+        <!-- / Layout sidenav -->
+        <!-- Layout container -->
+        <div class="layout-container">
+            <!-- Layout navbar -->
+            <nav th:replace="layout::navbar"></nav>
+            <!-- / Layout navbar -->
+            <!-- Layout content -->
+            <div class="layout-content">
+                <!-- Content -->
+                <div class="container-fluid flex-grow-1 container-p-y">
+                    <div class="card mb-4">
+                        <h6 class="card-header"><i class="ion ion-md-clipboard"></i> 권한 정보</h6>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                            <table class="table table-sm table-hover">
+                                <thead>
+                                <tr class="table-info">
+                                    <th scope="col">권한명</th>
+                                    <th scope="col">권한설명</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="role : ${roleList}">
+                                    <td class="text-center">
+                                        <a th:href="@{'/admin/role/' + ${role.id}}"><span th:text="${role.name}"></span></a>
+                                    </td>
+                                    <td class="text-center" th:text="${role.description}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-12 text-center">
+                                <a th:href="@{/admin/role/register}" class="btn btn-primary">권한 등록</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- / Content -->
+                <!-- Layout footer -->
+                <nav th:replace="layout::footer"></nav>
+                <!-- / Layout footer -->
+                <!-- Layout content -->
+            </div>
+            <!-- / Layout container -->
+        </div>
+        <!-- Layout inner -->
+        <div class="layout-overlay layout-sidenav-toggle"></div>
+    </div>
+    <!-- / Layout wrapper -->
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" class="default-style layout-navbar-fixed">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+    <title>Namo Message Service</title>
+
+    <link rel="stylesheet" href="/css/bootstrap-material.css">
+    <link rel="stylesheet" href="/css/appwork-material.css">
+    <link rel="stylesheet" href="/css/colors-material.css">
+    <link rel="stylesheet" href="/css/theme-corporate-material.css">
+    <link rel="stylesheet" href="/css/perfect-scrollbar.css">
+    <link rel="stylesheet" href="/css/uikit.css">
+    <link rel="stylesheet" href="/css/man.css">
+    <!-- page css -->
+    <link rel="stylesheet" href="/css/page/authentication.css">
+
+    <script src="/js/jquery-3.3.1.min.js"></script>
+    <script src="/js/material-ripple.js"></script>
+    <script src="/js/layout-helpers.js"></script>
+    <script src="/js/pace.js"></script>
+    <script src="/js/sidenav.js"></script>
+    <script src="/js/popper.js"></script>
+    <script src="/js/perfect-scrollbar.js"></script>
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/bootstrap-datepicker.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/common.js"></script>
+</head>
+
+<body>
+<div class="page-loader">
+    <div class="bg-primary"></div>
+</div>
+
+<!-- Content -->
+
+<div class="authentication-wrapper authentication-2 ui-bg-cover ui-bg-overlay-container px-4" style="opacity:0.7;background-image: url('/assets/images/login_bg.jpg');">
+<div class="ui-bg-overlay bg-dark opacity-25"></div>
+
+<div class="authentication-inner py-5">
+
+    <div class="card">
+        <div class="p-4 p-sm-5">
+            <!-- Logo -->
+            <div class="d-flex justify-content-center align-items-center pb-2 mb-4">
+                <div class="ui-w-60">
+                    <div class="w-100 position-relative" style="padding-bottom: 0">
+                        <img src="/images/namologo.png" style="width:150px" />
+                    </div>
+                </div>
+            </div>
+            <!-- / Logo -->
+            <!-- Form -->
+            <div class="form-group text-center">
+                <h2>Welcome</h2>
+                <h2>Namo Message Service</h2>
+            </div>
+            <div class="d-flex justify-content-center align-items-center m-0">
+                <a th:href="@{/user/message/send}" class="btn btn-info">문자 발송</a>
+            </div>
+            <!-- / Form -->
+
+        </div>
+    </div>
+
+</div>
+</div>
+
+</body>
+</html>
