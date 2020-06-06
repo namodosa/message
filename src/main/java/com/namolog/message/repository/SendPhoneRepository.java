@@ -14,5 +14,5 @@ public interface SendPhoneRepository extends JpaRepository<SendPhone, Integer> {
     List<SendPhoneDto> findAllByAccountId(@Param("accountId") Integer accountId);
 
     @Query("select new com.namolog.message.dto.SendPhoneDto(p.id, p.phone, p.status, p.regMethod, p.postDate, p.regDate) from SendPhone p where p.status = 1 and p.account.id = :accountId")
-    List<SendPhoneDto> findAllByAccountIdAndAccept(Integer id);
+    List<SendPhoneDto> findAllByAccountIdAndAccept(@Param("accountId") Integer accountId);
 }
