@@ -48,7 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final AuthenticationFailureHandler formAuthenticationFailureHandler;
     private final SecurityResourceServiceImpl securityResourceService;
 
-    private String[] permitAllResources = {"/", "/login", "/denied"};
+    private String[] permitAllResources = {"/", "/login", "/register", "/denied"};
 
     @Override
     public void configure(WebSecurity web) throws Exception {

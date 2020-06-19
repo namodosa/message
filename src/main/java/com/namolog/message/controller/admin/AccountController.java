@@ -14,31 +14,34 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/admin")
 public class AccountController {
 	
 	private final AccountService accountService;
 	private final RoleService roleService;
 	private final PasswordEncoder passwordEncoder;
 
-	@GetMapping(value = "/admin/account")
+	@GetMapping(value = "/account")
 	public String getUsers(Model model) throws Exception {
 		List<NmAccount> nmAccountList = accountService.getUsers();
 		model.addAttribute("accountList", nmAccountList);
 		return "admin/account/list";
 	}
 
-	@GetMapping("/admin/account/register")
+	@GetMapping("/account/register")
 	public String createUser() {
 		return "admin/account/register";
 	}
 
-	@PostMapping("/admin/account/register")
-	public String createUser(AccountDto accountDto) {
+	@PostMapping("/account/register")
+	public String createUser(@Valid AccountDto accountDto) {
 		ModelMapper modelMapper = new ModelMapper();
 		NmAccount account = modelMapper.map(accountDto, NmAccount.class);
 		account.setPassword(passwordEncoder.encode(account.getPassword()));
@@ -46,7 +49,7 @@ public class AccountController {
 		return "redirect:/admin/account";
 	}
 
-	@GetMapping(value = "/admin/account/{id}")
+	@GetMapping(value = "/account/{id}")
 	public String getUser(@PathVariable Integer id, Model model) {
 		AccountDto accountDto = accountService.getUser(id);
 		List<NmRole> nmRoleList = roleService.getRoles();
@@ -57,13 +60,13 @@ public class AccountController {
 		return "admin/account/detail";
 	}
 
-	@PostMapping(value = "/admin/account")
+	@PostMapping(value = "/account")
 	public String modifyUser(AccountDto accountDto) throws Exception {
 		accountService.modifyUser(accountDto);
 		return "redirect:/admin/account";
 	}
 
-	@GetMapping(value = "/admin/account/delete/{id}")
+	@GetMapping(value = "/account/delete/{id}")
 	public String removeUser(@PathVariable Integer id, Model model) {
 
 		accountService.deleteUser(id);

@@ -34,6 +34,8 @@ dependencies {
     implementation 'com.querydsl:querydsl-jpa'
     // validation
     compile 'javax.validation:validation-api:2.0.1.Final'
+    // 외부 라이브러리
+    compile fileTree(dir: 'lib', include: ['*.jar'])
     // ConfigurationProperties application.yml
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
     annotationProcessor 'org.projectlombok:lombok'
