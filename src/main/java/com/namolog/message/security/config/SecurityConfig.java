@@ -48,7 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final AuthenticationFailureHandler formAuthenticationFailureHandler;
     private final SecurityResourceServiceImpl securityResourceService;
 
-    private String[] permitAllResources = {"/", "/login", "/register", "/denied"};
+    private String[] permitAllResources = {"/", "/login", "/register", "/denied", "/auth/**"};
 
     @Override
     public void configure(WebSecurity web) throws Exception {
@@ -86,7 +86,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .addFilterAt(permitAllFilterSecurityInterceptor(), FilterSecurityInterceptor.class);
 
-        http.csrf().disable();
+        //http.csrf().disable();
     }
 
     @Bean

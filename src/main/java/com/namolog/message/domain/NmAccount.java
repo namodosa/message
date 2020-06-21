@@ -25,8 +25,17 @@ public class NmAccount implements Serializable {
     @Column(length = 100, nullable = false)
     private String password;
 
+    @Column(length = 20, nullable = false)
+    private String name;
+
     @Column(length = 50, nullable = false)
     private String email;
+
+    @Column(length = 11, nullable = false)
+    private String mobile;
+
+    @Column(length = 64)
+    private String di;
 
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     private List<NmAuthority> authorityList = new ArrayList<>();

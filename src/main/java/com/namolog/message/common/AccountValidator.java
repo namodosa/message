@@ -19,7 +19,7 @@ public class AccountValidator implements Validator {
 
         // 비밀번호 검증
         if (!value.getPassword().equals(value.getRepassword())) {
-            errors.rejectValue("repassword", "mismatchPassword", "입력한 비밀번호가 서로 다릅니다.");
+            errors.rejectValue("repassword", "mismatchPassword", "입력한 비밀번호가 서로 다릅니다");
         }
 
     }

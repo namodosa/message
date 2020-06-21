@@ -29,6 +29,15 @@
     <script src="/js/bootstrap-datepicker.min.js"></script>
     <script src="/js/main.js"></script>
     <script src="/js/common.js"></script>
+    <script>
+        window.name ="Parent_window";
+        function fnPopup(){
+            window.open('', 'popupChk', 'width=500, height=550, top=100, left=100, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=yes, location=no, scrollbar=no');
+            document.form_chk.action = "https://nice.checkplus.co.kr/CheckPlusSafeModel/checkplus.cb";
+            document.form_chk.target = "popupChk";
+            document.form_chk.submit();
+        }
+    </script>
 </head>
 
 <body>
@@ -60,8 +69,12 @@
                 <h3>Namo Message Service</h3>
             </div>
             <div class="d-flex justify-content-center align-items-center m-0">
-                <a th:href="@{/auth/phone}" class="btn btn-outline-primary">회원가입</a>
-                <a th:href="@{/user/message/send}" class="btn btn-outline-info" style="margin-left: 10px">문자발송</a>
+                <form name="form_chk" method="post">
+                    <input type="hidden" name="m" value="checkplusService">
+                    <input type="hidden" name="EncodeData" th:value="${sEncDate}">
+                    <a class="btn btn-info" href="javascript:fnPopup();">휴대폰 본인확인</a>
+                    <p th:if="${not #strings.isEmpty(message)}" th:errors="${message}" style="color: red">에러</p>
+                </form>
             </div>
             <!-- / Form -->
             <br />

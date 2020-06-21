@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.Principal;
 
@@ -54,14 +55,20 @@ public class LoginController {
 	}
 
 	@GetMapping(value="/register")
-	public String register(AccountDto accountDto){
+	public String register(AccountDto accountDto, HttpSession session, Model model){
+		if (session.getAttribute("di") != null)
+			accountDto.setDi(session.getAttribute("di").toString());
+		if (session.getAttribute("name") != null)
+			accountDto.setName(session.getAttribute("name").toString());
+		if (session.getAttribute("mobile") != null)
+			accountDto.setMobile(session.getAttribute("mobile").toString());
+		model.addAttribute("accountDto", accountDto);
 		return "register";
 	}
 
 	@PostMapping("/register")
-	public String createUser(@Valid AccountDto accountDto,  Errors errors) {
-		if (errors.hasErrors())
-			return "register";
+	public String createUser(@Valid AccountDto accountDto, Errors errors) {
+		//model.addAttribute("accountDto", accountDto);
 		accountValidator.validate(accountDto, errors);
 		if (errors.hasErrors())
 			return "register";

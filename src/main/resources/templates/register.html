@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 
-    <title>로그인</title>
+    <title>회원가입</title>
 
     <link rel="stylesheet" href="/css/bootstrap-material.css">
     <link rel="stylesheet" href="/css/appwork-material.css">
@@ -29,6 +29,14 @@
     <script src="/js/bootstrap-datepicker.min.js"></script>
     <script src="/js/main.js"></script>
     <script src="/js/common.js"></script>
+    <style>
+        .fieldError {
+            border-color: red;
+        }
+        .error {
+            color: red;
+        }
+    </style>
 </head>
 
 <body>
@@ -55,38 +63,49 @@
             </div>
             <!-- / Logo -->
             <!-- Form -->
-            <form class="form-horizontal" th:action="@{/register}" th:object="${accountDto}" method="post">
+            <form role="form" class="form-horizontal" th:action="@{/register}" th:object="${accountDto}" method="post">
+                <input type="hidden" th:field="*{di}">
+                <input type="hidden" th:field="*{name}">
+                <input type="hidden" th:field="*{mobile}">
                 <div class="form-group row">
-                    <label class="col-form-label col-sm-3 text-sm-right">아이디</label>
+                    <label class="col-form-label col-sm-3 text-sm-right" th:for="username">아이디</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control input-large" th:field="*{username}">
-                        <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" style="color:red">에러</p>
+                        <input type="text" th:field="*{username}" th:class="${#fields.hasErrors('username')} ? 'form-control fieldError' : 'form-control'">
+                        <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="error">에러</p>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-form-label col-sm-3 text-sm-right">비밀번호</label>
+                    <label class="col-form-label col-sm-3 text-sm-right" th:for="password">비밀번호</label>
                     <div class="col-sm-9">
-                        <input type="password" class="form-control input-large" th:field="*{password}" data-minlength="6">
-                        <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color:red">에러</p>
+                        <input type="password" th:field="*{password}" th:class="${#fields.hasErrors('password')} ? 'form-control fieldError' : 'form-control'">
+                        <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error">에러</p>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-form-label col-sm-3 text-sm-right">비밀번호 확인</label>
+                    <label class="col-form-label col-sm-3 text-sm-right" th:for="repassword">비밀번호 확인</label>
                     <div class="col-sm-9">
-                        <input type="password" class="form-control input-large" th:field="*{repassword}" data-minlength="6">
-                        <p th:if="${#fields.hasErrors('repassword')}" th:errors="*{repassword}" style="color:red">에러</p>
+                        <input type="password" th:field="*{repassword}" th:class="${#fields.hasErrors('repassword')} ? 'form-control fieldError' : 'form-control'">
+                        <p th:if="${#fields.hasErrors('repassword')}" th:errors="*{repassword}" class="error">에러</p>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-form-label col-sm-3 text-sm-right">이메일</label>
+                    <label class="col-form-label col-sm-3 text-sm-right">이름</label>
+                    <label class="col-sm-9" th:text="*{name}" style="margin-top: 7px">이름</label>
+                </div>
+                <div class="form-group row">
+                    <label class="col-form-label col-sm-3 text-sm-right" th:for="mobile">휴대폰</label>
+                    <label class="col-sm-9" th:text="*{mobile}" style="margin-top: 7px">휴대폰</label>
+                </div>
+                <div class="form-group row">
+                    <label class="col-form-label col-sm-3 text-sm-right" th:for="email">이메일</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control input-large" th:field="*{email}">
-                        <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color:red">에러</p>
+                        <input type="text" th:field="*{email}" th:class="${#fields.hasErrors('email')} ? 'form-control fieldError' : 'form-control'">
+                        <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error">에러</p>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-10 ml-sm-auto text-center">
-                        <button type="Submit" class="btn btn-primary">회원가입</button>
+                        <button type="submit" class="btn btn-primary">회원가입</button>
                         <a class="btn btn-success" th:href="@{/login}">로그인</a>
                     </div>
                 </div>

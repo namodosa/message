@@ -26,3 +26,5 @@ logging:
       springframework.security: debug
 namo:
   enable-ip-protect: false
+  nice-site-code: BR867
+  nice-site-password: Ic7XMo9rwnHI

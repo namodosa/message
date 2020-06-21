@@ -5,6 +5,7 @@ import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
 @Component
@@ -14,15 +15,11 @@ public class AppProperties {
 
     @NotEmpty
     private Boolean enableIpProtect;
-//    @NotEmpty
-//    private String adminPassword;
-//    @NotEmpty
-//    private String userUsername;
-//    @NotEmpty
-//    private String userPassword;
-//    @NotEmpty
-//    private String clientId;
-//    @NotEmpty
-//    private String clientSecret;
+
+    @NotBlank
+    private String niceSiteCode;
+
+    @NotBlank
+    private String niceSitePassword;
 
 }
