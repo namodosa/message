@@ -28,7 +28,7 @@ public class BizLogRepositoryImpl implements BizLogRepositoryCustom {
     }
 
     @Override
-    public Page<BizLogDto> bizLogSearch(BizLogSearchConditon conditon, Pageable pageable) {
+    public Page<BizLogDto> bizLogSearch(BizLogSearchConditon condition, Pageable pageable) {
         List<BizLogDto> content = queryFactory
                 .select(new QBizLogDto(
                         bizLog.cmid,
@@ -43,14 +43,14 @@ public class BizLogRepositoryImpl implements BizLogRepositoryCustom {
                 ))
                 .from(bizLog)
                 .where(
-                        cinfoEq(conditon.getCinfo()),
-                        statusEq(conditon.getStatus()),
-                        telInfoEq(conditon.getTelInfo()),
-                        sendPhoneContains(conditon.getDestPhone()),
-                        destPhoneContains(conditon.getDestPhone()),
-                        requestDateRange(conditon.getFromRequestDate(), conditon.getToRequestDate()),
-                        sendDateRange(conditon.getFromSendDate(), conditon.getToSendDate()),
-                        msgBodyContains(conditon.getMsgBody())
+                        cinfoEq(condition.getCinfo()),
+                        statusEq(condition.getStatus()),
+                        telInfoEq(condition.getTelInfo()),
+                        sendPhoneContains(condition.getDestPhone()),
+                        destPhoneContains(condition.getDestPhone()),
+                        requestDateRange(condition.getFromRequestDate(), condition.getToRequestDate()),
+                        sendDateRange(condition.getFromSendDate(), condition.getToSendDate()),
+                        msgBodyContains(condition.getMsgBody())
                 )
                 .orderBy(bizLog.cmid.desc())
                 .offset(pageable.getOffset())
@@ -61,14 +61,14 @@ public class BizLogRepositoryImpl implements BizLogRepositoryCustom {
                 .select(bizLog)
                 .from(bizLog)
                 .where(
-                        cinfoEq(conditon.getCinfo()),
-                        statusEq(conditon.getStatus()),
-                        telInfoEq(conditon.getTelInfo()),
-                        sendPhoneContains(conditon.getDestPhone()),
-                        destPhoneContains(conditon.getDestPhone()),
-                        requestDateRange(conditon.getFromRequestDate(), conditon.getToRequestDate()),
-                        sendDateRange(conditon.getFromSendDate(), conditon.getToSendDate()),
-                        msgBodyContains(conditon.getMsgBody())
+                        cinfoEq(condition.getCinfo()),
+                        statusEq(condition.getStatus()),
+                        telInfoEq(condition.getTelInfo()),
+                        sendPhoneContains(condition.getDestPhone()),
+                        destPhoneContains(condition.getDestPhone()),
+                        requestDateRange(condition.getFromRequestDate(), condition.getToRequestDate()),
+                        sendDateRange(condition.getFromSendDate(), condition.getToSendDate()),
+                        msgBodyContains(condition.getMsgBody())
                 );
 
         //return new PageImpl<>(content, pageable, total);

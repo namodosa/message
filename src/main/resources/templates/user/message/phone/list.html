@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" class="default-style layout-navbar-fixed" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" class="default-style layout-navbar-fixed"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="layout::head"></head>
 <body>
 <div class="page-loader">
@@ -26,26 +27,30 @@
                         <div class="card-body">
 
                             <div class="table-responsive">
-                            <table class="table table-sm table-hover">
-                                <thead>
-                                <tr class="table-info">
-                                    <th scope="col">발신번호</th>
-                                    <th scope="col">등록상태</th>
-                                    <th scope="col">등록방법</th>
-                                    <th scope="col">신청일시</th>
-                                    <th scope="col">등록일시</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr th:each="phone : ${phoneList}">
-                                    <td class="text-center" th:text="${phone.phone}"></td>
-                                    <td class="text-center" th:text="${phone.status == 1 ? '등록완료' : '등록대기'}"></td>
-                                    <td class="text-center" th:text="${phone.regMethod}"></td>
-                                    <td class="text-center" th:text="${phone.postDate}"></td>
-                                    <td class="text-center" th:text="${phone.regDate}"></td>
-                                </tr>
-                                </tbody>
-                            </table>
+                                <table class="table table-sm table-hover">
+                                    <thead>
+                                    <tr class="table-info">
+                                        <th scope="col">발신번호</th>
+                                        <th scope="col">등록상태</th>
+                                        <th scope="col">등록방법</th>
+                                        <th scope="col">신청일시</th>
+                                        <th scope="col">등록일시</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="phone : ${phoneList}">
+                                        <td class="text-center"><a th:href="@{|/user/message/phone/detail/${phone.id}|}"
+                                                                   th:text="${phone.phone}"></a></td>
+                                        <td class="text-center" th:if="${phone.status == 1}">등록완료</td>
+                                        <td class="text-center" th:unless="${phone.status == 1}">
+                                            <a th:href="@{|/auth/phone/${phone.id}|}">미인증</a>
+                                        </td>
+                                        <td class="text-center" th:text="${phone.regMethod}"></td>
+                                        <td class="text-center" th:text="${phone.postDate}"></td>
+                                        <td class="text-center" th:text="${phone.regDate}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-12 text-center">
@@ -59,13 +64,14 @@
                 <!-- Layout footer -->
                 <nav th:replace="layout::footer"></nav>
                 <!-- / Layout footer -->
-                <!-- Layout content -->
             </div>
-            <!-- / Layout container -->
+            <!-- Layout content -->
         </div>
-        <!-- Layout inner -->
-        <div class="layout-overlay layout-sidenav-toggle"></div>
+        <!-- / Layout container -->
     </div>
-    <!-- / Layout wrapper -->
+    <!-- Layout inner -->
+    <div class="layout-overlay layout-sidenav-toggle"></div>
+</div>
+<!-- / Layout wrapper -->
 </body>
 </html>

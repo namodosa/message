@@ -1,10 +1,14 @@
 package com.namolog.message.controller;
 
 import com.namolog.message.common.AppProperties;
+import com.namolog.message.common.RegMethod;
+import com.namolog.message.domain.SendPhone;
+import com.namolog.message.repository.SendPhoneRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,9 +20,11 @@ import javax.servlet.http.HttpSession;
 public class MobileIdentityController {
 
     private final AppProperties appProperties;
+    private final SendPhoneRepository sendPhoneRepository;
 
-    @GetMapping("/phone")
-    public String authPhone(HttpServletRequest request, HttpSession session, Model model) {
+    @GetMapping(value = {"/phone", "/phone/{id}"})
+    public String authPhone(@PathVariable(required = false) Integer id,
+                            HttpServletRequest request, HttpSession session, Model model) {
         NiceID.Check.CPClient niceCheck = new  NiceID.Check.CPClient();
         // NICE로부터 부여받은 사이트 코드
         String sSiteCode = appProperties.getNiceSiteCode();
@@ -38,7 +44,11 @@ public class MobileIdentityController {
         String sGender = "";
 
         String sReturnUrl = String.format("%s://%s:%s/auth/success", request.getScheme(), request.getServerName(), request.getServerPort());      // 성공시 이동될 URL
-        String sErrorUrl = String.format("%s://%s:%s/auth/fail", request.getScheme(), request.getServerName(), request.getServerPort());         // 실패시 이동될 URL
+        String sErrorUrl = String.format("%s://%s:%s/auth/phone", request.getScheme(), request.getServerName(), request.getServerPort());         // 실패시 이동될 URL
+        if (id != null) {
+            sReturnUrl = String.format("%s://%s:%s/auth/success/%s", request.getScheme(), request.getServerName(), request.getServerPort(), id.toString());      // 성공시 이동될 URL
+            sErrorUrl = String.format("%s://%s:%s/auth/phone/%s", request.getScheme(), request.getServerName(), request.getServerPort(), id.toString());         // 실패시 이동될 URL
+        }
 
         // 입력될 plain 데이타를 만든다.
         String sPlainData = "7:REQ_SEQ" + sRequestNumber.getBytes().length + ":" + sRequestNumber +
@@ -69,11 +79,20 @@ public class MobileIdentityController {
 
         model.addAttribute("sEncDate", sEncData);
         model.addAttribute("sMessage", sMessage);
-        return "auth/phone";
+        if (id == null)
+            return "auth/phone";
+        else {
+            RegMethod[] regMethodList = RegMethod.values();
+            SendPhone sendPhone = sendPhoneRepository.findById(id).orElse(null);
+            model.addAttribute("regMethodList", regMethodList);
+            model.addAttribute("sendPhone", sendPhone);
+            return "user/message/phone/auth";
+        }
     }
 
-    @GetMapping("/success")
-    public String authSuccess(HttpServletRequest request, HttpSession session, Model model) {
+    @GetMapping(value = {"/success", "/success/{id}"})
+    public String authSuccess(@PathVariable(required = false) Integer id,
+                              HttpServletRequest request, HttpSession session, Model model) {
         NiceID.Check.CPClient niceCheck = new  NiceID.Check.CPClient();
 
         String sEncodeData = requestReplace(request.getParameter("EncodeData"), "encodeData");
@@ -147,11 +166,19 @@ public class MobileIdentityController {
             session.setAttribute("di", sDupInfo);
             session.setAttribute("name", sName);
             session.setAttribute("mobile", sMobileNo);
-            return "auth/success";
+            if (id == null)
+                return "auth/success";
+            else {
+                model.addAttribute("id", id);
+                return "auth/success_phone";
+            }
         }
         else {
             model.addAttribute("message", "본인확인 실패");
-            return "auth/phone";
+            if (id == null)
+                return "auth/phone";
+            else
+                return "user/message/phone/auth";
         }
     }
 

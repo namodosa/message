@@ -19,4 +19,5 @@ public class BizLogSearchConditon {
     private String fromSendDate;
     private String toSendDate;
     private String telInfo;
+
 }

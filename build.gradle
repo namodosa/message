@@ -37,17 +37,20 @@ dependencies {
     // 외부 라이브러리
     compile fileTree(dir: 'lib', include: ['*.jar'])
     // ConfigurationProperties application.yml
-    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor 'org.projectlombok:lombok'
     //
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'mysql:mysql-connector-java'
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+    // for test
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
     testImplementation 'org.springframework.security:spring-security-test'
+//    testCompileOnly 'org.projectlombok:lombok'
+//    testAnnotationProcessor 'org.projectlombok:lombok'
 }
 
 test {
@@ -56,6 +59,7 @@ test {
 
 // Query DSL
 def querydslDir = "$buildDir/generated/querydsl"
+//def querydslDir = "src/main/generated"
 querydsl {
     jpa = true
     querydslSourcesDir = querydslDir

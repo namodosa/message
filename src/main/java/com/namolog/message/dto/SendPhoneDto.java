@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -16,6 +17,7 @@ import java.time.format.DateTimeFormatter;
 public class SendPhoneDto {
 
     private Integer id;
+    @NotBlank(message = "전화번호를 입력해 주세요")
     private String phone;
     private Integer status;
     private RegMethod regMethod;
@@ -28,6 +30,7 @@ public class SendPhoneDto {
         this.status = status;
         this.regMethod = regMethod;
         this.postDate = postDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        this.regDate = regDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        if (regDate != null)
+            this.regDate = regDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
 }

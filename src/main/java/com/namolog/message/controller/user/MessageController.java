@@ -20,6 +20,7 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,8 +29,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.validation.Valid;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Controller
 @RequiredArgsConstructor
@@ -95,14 +100,40 @@ public class MessageController {
         return "/user/message/phone/list";
     }
 
-    @GetMapping("/user/message/phone/add")
-    public String addSendPhone() {
+    @GetMapping("/user/message/phone/detail/{id}")
+    public String detailSendPhone(@PathVariable Integer id, Model model) {
+        //List<String> regMethodList = Arrays.stream(RegMethod.values()).map(Enum::toString).collect(Collectors.toList());
+        RegMethod[] regMethodList = RegMethod.values();
+        SendPhone sendPhone = sendPhoneRepository.findById(id).orElse(null);
+        model.addAttribute("regMethodList", regMethodList);
+        model.addAttribute("sendPhone", sendPhone);
         return "/user/message/phone/detail";
     }
 
+    @GetMapping("/user/message/phone/add")
+    public String addSendPhone(Model model) {
+//        List<String> regMethodList = Arrays.stream(RegMethod.values()).map(Enum::toString).collect(Collectors.toList());
+//        model.addAttribute("regMethodList", regMethodList);
+        return "/user/message/phone/add";
+    }
+
+    @GetMapping("/user/message/phone/auth/{id}")
+    public String authSendPhone(@PathVariable Integer id) {
+        SendPhone saveSendPhone = sendPhoneRepository.findById(id).orElse(null);
+        saveSendPhone.setStatus(1);
+        saveSendPhone.setRegMethod(RegMethod.MOBILE);
+        saveSendPhone.setRegDate(LocalDateTime.now());
+        sendPhoneRepository.save(saveSendPhone);
+        return "redirect:/user/message/phone/list";
+    }
+
     @PostMapping("/user/message/phone/add")
-    public String addSendPhone(SendPhone sendPhone) {
+    public String addSendPhone(@Valid SendPhoneDto sendPhoneDto, Errors errors) {
+//        if (errors.hasErrors())
+//            return "/user/message/phone/add";
         NmAccount account = (NmAccount) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        SendPhone sendPhone = new SendPhone();
+        sendPhone.setPhone(sendPhoneDto.getPhone());
         sendPhone.setAccount(account);
         sendPhone.setStatus(0);
         sendPhone.setRegMethod(RegMethod.MOBILE);

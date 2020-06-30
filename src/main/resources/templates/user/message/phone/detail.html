@@ -23,19 +23,30 @@
                 <div class="container-fluid flex-grow-1 container-p-y">
 
                     <div class="card mb-4">
-                        <h6 class="card-header"><i class="ion ion-md-clipboard"></i> 발신번호 사전등록</h6>
+                        <h6 class="card-header"><i class="ion ion-md-clipboard"></i> 발신번호 등록</h6>
                         <div class="card-body">
-                            <form class="form-horizontal" th:action="@{/user/message/phone/add}" method="post" >
+                            <form class="form-horizontal" th:action="@{/user/message/phone/deatil}" th:object="${sendPhone}" method="post" >
                             <div class="form-group row">
                                 <label class="col-form-label col-sm-2 text-sm-right">발신번호</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control input-large" name="phone" id="phone" placeholder="">
+                                    <input type="text" class="form-control input-large" th:field="*{phone}">
                                 </div>
                             </div>
+                                <div class="form-group row">
+                                    <label class="col-form-label col-sm-2 text-sm-right">인증수단</label>
+                                    <div class="col-sm-2 form-check">
+                                        <label class="custom-control custom-radio mt-1" th:each="method : ${regMethodList}">
+                                            <input type="radio" name="regMethod" class="custom-control-input" th:value="${method}"
+                                                   th:checked="${#strings.equals(method, *{regMethod})}" />
+                                            <span class="custom-control-label" th:text="${method}">휴대폰 본인인증</span>
+                                        </label>
+                                    </div>
+                                </div>
 
                             <div class="form-group row">
                                 <div class="col-sm-10 ml-sm-auto">
                                     <button type="Submit" class="btn btn-primary">등록</button>
+                                    <a class="btn btn-info" th:href="@{/user/message/phone/list}">목록</a>
                                 </div>
                             </div>
                             </form>

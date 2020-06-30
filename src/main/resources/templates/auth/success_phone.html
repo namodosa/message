@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <script src="/js/jquery-3.3.1.min.js"></script>
+    <script>
+        $(function () {
+            //window.close();
+            //window.opener.location.href = "/user/message/phone/auth/" + $("#id").val();
+            $(opener.location).attr("href", "/user/message/phone/auth/" + $("#id").val());
+
+            // $(opener.document).find("#auth-form").attr("action", "/user/message/phone/auth");
+            // $(opener.document).find("#auth-form").attr("target", "");
+            //$(opener.document).find("#auth-form").submit();
+        })
+    </script>
+</head>
+<body>
+<input type="hidden" th:field="${id}">
+</body>
+</html>

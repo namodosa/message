@@ -21,12 +21,17 @@ public class SendPhone {
 
     @Column(length = 20, nullable = false)
     private String phone;
+
     @Column(nullable = false)
     private Integer status;
-    @Column(nullable = false)
+
+    @Column(length = 10, nullable = false)
+    @Enumerated(EnumType.STRING)
     private RegMethod regMethod;
+
     @Column(nullable = false)
     private LocalDateTime postDate;
+
     private LocalDateTime regDate;
 
     @ManyToOne
